@@ -1,0 +1,28 @@
+{
+  "name": "thp-server",
+  "version": "1.0.0",
+  "description": "server and database for the thesis project",
+  "main": "server.js",
+  "scripts": {
+    "test": "jest",
+    "test:watch": "jest --watch",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/RBK-DMMZ-ThesisProject/ThP-server.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/RBK-DMMZ-ThesisProject/ThP-server/issues"
+  },
+  "homepage": "https://github.com/RBK-DMMZ-ThesisProject/ThP-server#readme",
+  "dependencies": {
+    "express": "^4.17.1",
+    "mongoose": "^5.7.13"
+  },
+  "devDependencies": {
+    "supertest": "^4.0.2"
+  }
+}
