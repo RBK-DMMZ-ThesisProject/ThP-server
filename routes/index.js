@@ -57,13 +57,25 @@ router.get("/profil", (req, res) => {
   });
 });
 
-//Api that updates the ServiceProvider table
-router.post("/profil", (req, res) => {
-  console.log(req.body);
+//Api that updates the state in the  ServiceProvider table
+router.post("/updateState", (req, res) => {
+  console.log(req.body.id);
   db.ServiceProvider.update(
-    { id: req.body.data },
+    { id: req.body.id },
     { $set: { ProfileState: 2 } }
-  );
+  ).then(profile => {
+    res.json(profile);
+  });
+});
+//Api that updates the ProfileNotes in the  ServiceProvider
+router.post("/updateProfileNotes", (req, res) => {
+  console.log(req.body.id);
+  db.ServiceProvider.update(
+    { id: req.body.id },
+    { $set: { ProfileNotes: req.body.ProfileNotes } }
+  ).then(profile => {
+    res.json(profile);
+  });
 });
 
 // //API for the log in authintecation
