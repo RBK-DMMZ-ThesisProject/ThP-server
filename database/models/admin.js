@@ -7,7 +7,7 @@ var adminSchema = new Schema({
     type: Number,
     required: true
   },
-  userName: String,
+  adminName: String,
   password: String,
   email: String,
   dataAdded: {

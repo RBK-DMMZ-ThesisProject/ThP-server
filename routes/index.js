@@ -6,44 +6,94 @@ router.get("/test", async (req, res) => {
   res.json({ message: "pass!" });
 });
 
-//Api that gits all the newprofils from the ServiceProvider table
+//Api that gets all the newprofils from the ServiceProvider table
 router.get("/newprofils", (req, res) => {
   db.ServiceProvider.find({ ProfileState: 0 }).then(newprofils => {
     var nameArr = [];
     for (var i = 0; i < newprofils.length; i++) {
-      nameArr.push(newprofils[i].userName);
+      var temp = {
+        userName: newprofils[i].userName,
+        id: newprofils[i].id
+      };
+      nameArr.push(temp);
     }
     res.json(nameArr);
   });
 });
 
-//Api that gits all the underchickprofils from the ServiceProvider table
+//Api that gets all the underchickprofils from the ServiceProvider table
 router.get("/profils", (req, res) => {
   db.ServiceProvider.find({ ProfileState: 1 }).then(profils => {
     var nameArr = [];
     for (var i = 0; i < newprofils.length; i++) {
-      nameArr.push(newprofils[i].userName);
+      var temp = {
+        userName: newprofils[i].userName,
+        id: newprofils[i].id
+      };
+      nameArr.push(temp);
     }
     res.json(nameArr);
   });
 });
 
-//Api that gits all the acceptedprofils from the ServiceProvider table
+//Api that gets all the acceptedprofils from the ServiceProvider table
 router.get("/acceptedProfils", (req, res) => {
-  db.ServiceProvider.find({ ProfileState: 1 }).then(profils => {
+  db.ServiceProvider.find({ ProfileState: 2 }).then(profils => {
     var nameArr = [];
     for (var i = 0; i < newprofils.length; i++) {
-      nameArr.push(newprofils[i].userName);
+      var temp = {
+        userName: newprofils[i].userName,
+        id: newprofils[i].id
+      };
+      nameArr.push(temp);
     }
     res.json(nameArr);
   });
 });
-//Api that gits the profil from the ServiceProvider table
+//Api that gets the profil from the ServiceProvider table
 router.get("/profil", (req, res) => {
-  db.ServiceProvider.find({ userName: req.data }).then(profil => {
+  db.ServiceProvider.find({ id: req.body.data }).then(profil => {
     res.json(profil);
   });
 });
+
+//Api that updates the ServiceProvider table
+router.post("/profil", (req, res) => {
+  console.log(req.body);
+  db.ServiceProvider.update(
+    { id: req.body.data },
+    { $set: { ProfileState: 2 } }
+  );
+});
+
+// //API for the log in authintecation
+// app.post("/adminLogin", (req, res) => {
+//   db.admin
+//     .findOne({
+//       email: req.body.email
+//     })
+//     .then(user => {
+//       if (user) {
+//         if (bcrypt.compareSync(req.body.password, user.password)) {
+//           const payload = {
+//             _id: user._id,
+//             userName: user.userName,
+//             email: user.email,
+//             password: user.password
+//           };
+//           let token = jwt.sign(payload, process.env.SECRET_KEY, {
+//             expiresIn: "1h"
+//           });
+//           res.send(token);
+//         } else {
+//           res.json({ error: "wrong password " });
+//         }
+//       } else {
+//         res.json({ error: "user  not exist" });
+//       }
+//     })
+//     .catch("error");
+// });
 
 // //Api that gits all the information from the favorites table dependding on the data sent
 // router.get("/favorites", (req, res) => {
