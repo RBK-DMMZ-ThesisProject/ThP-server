@@ -15,6 +15,6 @@ var spHiresSchema = new Schema({
   }
 });
 
-var SpHires = mongoose.model("SpHires", spHiresSchema);
+var SpHires = mongoose.model("spHire", spHiresSchema);
 
 module.exports = SpHires;

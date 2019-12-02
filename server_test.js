@@ -1,9 +1,14 @@
-const app = require("./server.js");
-const supertest = require("supertest");
-const request = supertest(app);
+const express = require("express");
+const request = require("supertest");
+const app = express();
 
-app.listen(3000);
+const bodyParser = require("body-parser");
 
-app.get("/test", async (req, res) => {
-  res.json({ message: "pass!" });
+app.use(express.static(__dirname + "/"));
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
+app.use(require("./routes"));
+app.listen(8001, () => {
+  console.log(`Server running at: http://localhost:8001/`);
 });
+module.exports = app;

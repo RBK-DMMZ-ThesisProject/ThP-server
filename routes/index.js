@@ -1,18 +1,49 @@
 const express = require("express");
 const router = express.Router();
 const db = require("../database/db");
-// router.get("/", (req, res) => {
-//   res.send("heloooo");
-// });
-app.get("/test", async (req, res) => {
+
+router.get("/test", async (req, res) => {
   res.json({ message: "pass!" });
 });
-// //Api that gits all the information from the ServiceProvider table dependding on the data sent
-// router.get("/categories", (req, res) => {
-//   db.ServiceProvider.find({ ServiceCategory: req.data }).then(items => {
-//     res.json(items);
-//   });
-// });
+
+//Api that gits all the newprofils from the ServiceProvider table
+router.get("/newprofils", (req, res) => {
+  db.ServiceProvider.find({ ProfileState: 0 }).then(newprofils => {
+    var nameArr = [];
+    for (var i = 0; i < newprofils.length; i++) {
+      nameArr.push(newprofils[i].userName);
+    }
+    res.json(nameArr);
+  });
+});
+
+//Api that gits all the underchickprofils from the ServiceProvider table
+router.get("/profils", (req, res) => {
+  db.ServiceProvider.find({ ProfileState: 1 }).then(profils => {
+    var nameArr = [];
+    for (var i = 0; i < newprofils.length; i++) {
+      nameArr.push(newprofils[i].userName);
+    }
+    res.json(nameArr);
+  });
+});
+
+//Api that gits all the acceptedprofils from the ServiceProvider table
+router.get("/acceptedProfils", (req, res) => {
+  db.ServiceProvider.find({ ProfileState: 1 }).then(profils => {
+    var nameArr = [];
+    for (var i = 0; i < newprofils.length; i++) {
+      nameArr.push(newprofils[i].userName);
+    }
+    res.json(nameArr);
+  });
+});
+//Api that gits the profil from the ServiceProvider table
+router.get("/profil", (req, res) => {
+  db.ServiceProvider.find({ userName: req.data }).then(profil => {
+    res.json(profil);
+  });
+});
 
 // //Api that gits all the information from the favorites table dependding on the data sent
 // router.get("/favorites", (req, res) => {

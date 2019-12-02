@@ -7,14 +7,12 @@ var serviceProviderSchema = new Schema({
     type: Number,
     required: true
   },
-  userFirstName: String,
-  userLastName: String,
+  userName: String,
   dateOfBirth: Date,
   email: String,
   userMobileNum: String,
   userImg: String,
   userWorkImg: [],
-  password: String,
   ServiceCategory: String,
   ServiceDescription: String,
   ProfileState: Number, //(0 (Default New Profile),1 (under Check),2 (approved)).
@@ -25,6 +23,9 @@ var serviceProviderSchema = new Schema({
   }
 });
 
-var ServiceProvider = mongoose.model("ServiceProvider", serviceProviderSchema);
+const ServiceProvider = mongoose.model(
+  "serviceprovider",
+  serviceProviderSchema
+);
 
 module.exports = ServiceProvider;

@@ -17,6 +17,6 @@ var customerReviewsSchema = new Schema({
   }
 });
 
-var CustomerReviews = mongoose.model("CustomerReviews", customerReviewsSchema);
+var CustomerReviews = mongoose.model("customerReview", customerReviewsSchema);
 
 module.exports = CustomerReviews;
