@@ -1,7 +1,9 @@
 const express = require("express");
 const request = require("supertest");
 const app = express();
-
+const cors = require("cors");
+const jwt = require("jsonwebtoken");
+const bcrypt = require("bcryptjs");
 const bodyParser = require("body-parser");
 
 app.use(express.static(__dirname + "/"));

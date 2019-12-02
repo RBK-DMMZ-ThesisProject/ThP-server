@@ -1,6 +1,11 @@
 const express = require("express");
 const router = express.Router();
 const db = require("../database/db");
+const cors = require("cors");
+const jwt = require("jsonwebtoken");
+const bcrypt = require("bcryptjs");
+
+process.env.SECRET_KEY = "secret";
 
 router.get("/test", async (req, res) => {
   res.json({ message: "pass!" });
@@ -79,33 +84,32 @@ router.post("/updateProfileNotes", (req, res) => {
 });
 
 // //API for the log in authintecation
-// app.post("/adminLogin", (req, res) => {
-//   db.admin
-//     .findOne({
-//       email: req.body.email
-//     })
-//     .then(user => {
-//       if (user) {
-//         if (bcrypt.compareSync(req.body.password, user.password)) {
-//           const payload = {
-//             _id: user._id,
-//             userName: user.userName,
-//             email: user.email,
-//             password: user.password
-//           };
-//           let token = jwt.sign(payload, process.env.SECRET_KEY, {
-//             expiresIn: "1h"
-//           });
-//           res.send(token);
-//         } else {
-//           res.json({ error: "wrong password " });
-//         }
-//       } else {
-//         res.json({ error: "user  not exist" });
-//       }
-//     })
-//     .catch("error");
-// });
+router.post("/adminLogin", (req, res) => {
+  db.Admin.findOne({
+    email: req.body.email
+  })
+    .then(user => {
+      if (user) {
+        if (bcrypt.compareSync(req.body.password, user.password)) {
+          const payload = {
+            _id: user._id,
+            userName: user.userName,
+            email: user.email,
+            password: user.password
+          };
+          let token = jwt.sign(payload, process.env.SECRET_KEY, {
+            expiresIn: "24h"
+          });
+          res.send(token);
+        } else {
+          res.json({ error: "wrong password " });
+        }
+      } else {
+        res.json({ error: "user  not exist" });
+      }
+    })
+    .catch("error");
+});
 
 // //Api that gits all the information from the favorites table dependding on the data sent
 // router.get("/favorites", (req, res) => {
