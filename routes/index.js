@@ -30,10 +30,10 @@ router.get("/newprofils", (req, res) => {
 router.get("/profils", (req, res) => {
   db.ServiceProvider.find({ ProfileState: 1 }).then(profils => {
     var nameArr = [];
-    for (var i = 0; i < newprofils.length; i++) {
+    for (var i = 0; i < profils.length; i++) {
       var temp = {
-        userName: newprofils[i].userName,
-        id: newprofils[i].id
+        userName: profils[i].userName,
+        id: profils[i].id
       };
       nameArr.push(temp);
     }
@@ -45,10 +45,10 @@ router.get("/profils", (req, res) => {
 router.get("/acceptedProfils", (req, res) => {
   db.ServiceProvider.find({ ProfileState: 2 }).then(profils => {
     var nameArr = [];
-    for (var i = 0; i < newprofils.length; i++) {
+    for (var i = 0; i < profils.length; i++) {
       var temp = {
-        userName: newprofils[i].userName,
-        id: newprofils[i].id
+        userName: profils[i].userName,
+        id: profils[i].id
       };
       nameArr.push(temp);
     }
